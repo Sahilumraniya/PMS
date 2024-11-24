@@ -58,7 +58,7 @@ const Card: FC<CardProps> = ({ task, status }) => {
   return (
     <div
       ref={ref} // Use the ref here
-      className={`p-4 bg-white rounded shadow cursor-pointer hover:cursor-grab ${isDragging ? 'border-2 border-red-500 border-dashed bg-transparent ' : 'opacity-100'
+      className={`p-4 bg-white rounded shadow cursor-pointer hover:cursor-grab ${isDragging ? 'border-2 border-red-500 border-dashed bg-transparent bg-white' : 'opacity-100'
         }`}
     >
       <div className="flex justify-between items-center mb-2">

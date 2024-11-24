@@ -25,9 +25,8 @@ const Sidebar: FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) => {
 
     return (
         <aside
-            className={`flex flex-col bg-white h-screen border-r transition-all duration-300 ${
-                isCollapsed ? 'w-16' : 'w-64'
-            }`}
+            className={`flex flex-col bg-white h-screen border-r transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'
+                }`}
         >
             <div className="flex justify-between items-center px-4 py-3">
                 {!isCollapsed && <h1 className="font-bold">Project Management</h1>}
@@ -43,13 +42,11 @@ const Sidebar: FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) => {
                 {menuItems.map((item, index) => (
                     <Link key={index} href={item.path}>
                         <div
-                            className={`flex items-center py-2 px-4 text-gray-700 cursor-pointer transition-all rounded-md ${
-                                isCollapsed ? 'justify-center' : 'justify-start'
-                            } ${
-                                pathname === item.path
+                            className={`flex items-center py-2 px-4 text-gray-700 cursor-pointer transition-all rounded-md ${isCollapsed ? 'justify-center' : 'justify-start'
+                                } ${pathname === item.path
                                     ? 'bg-blue-100 text-blue-600 border-l-4 border-blue-600'
                                     : 'hover:bg-gray-100'
-                            }`}
+                                }`}
                         >
                             <div className="mr-2">{item.icon}</div>
                             {!isCollapsed && <span>{item.label}</span>}
@@ -58,18 +55,17 @@ const Sidebar: FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) => {
                 ))}
 
                 {/* Projects Section */}
-                <div className="mt-4">
-                    {!isCollapsed && <p className="px-4 text-gray-500 text-sm">Projects</p>}
+                <div className="mt-4 px-2">
+                    <hr className="my-2" />
+                    {!isCollapsed && <p className="px-4 mb-5 text-gray-800 text-xl font-bold">My Projects</p>}
                     {projects.map((project, index) => (
                         <Link key={index} href={project.path}>
                             <div
-                                className={`flex items-center py-2 px-4 text-gray-700 cursor-pointer transition-all rounded-md ${
-                                    isCollapsed ? 'justify-center' : 'justify-start'
-                                } ${
-                                    pathname.startsWith(project.path)
+                                className={`flex items-center py-2 px-4 text-gray-700 cursor-pointer transition-all rounded-md ${isCollapsed ? 'justify-center' : 'justify-start'
+                                    } ${pathname.startsWith(project.path)
                                         ? 'bg-blue-100 text-blue-600 border-l-4 border-blue-600'
                                         : 'hover:bg-gray-100'
-                                }`}
+                                    }`}
                             >
                                 <div className="mr-2">{project.icon}</div>
                                 {!isCollapsed && <span>{project.label}</span>}

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { Task } from './types';
 import Card from './Card';
@@ -11,26 +11,36 @@ interface ColumnProps {
 }
 
 const Column: FC<ColumnProps> = ({ status, cards }) => {
-
   const dispatch = useDispatch();
 
   const [, drop] = useDrop({
     accept: 'CARD',
     drop: (item: { task: Task; status: string }) => {
-      console.log("STatus :", status, item.task);
-
       if (item.status !== status) {
         dispatch(moveTask({ id: item.task._id, status }));
       }
-    },
+    }
   });
 
   return (
-    <div ref={drop} className="p-4 bg-gray-100 rounded shadow">
-      <h2 className="mb-4 text-lg font-bold capitalize">{status}</h2>
-      <div className="space-y-4">
+    <div
+      ref={drop}
+      className={`relative p-4 rounded-lg shadow-lg bg-white border border-gray-200 transition-all duration-30`}
+    >
+      <div className='flex justify-between'>
+        <div className='flex justify-center items-center space-x-2'>
+          <div className={`w-2 h-2 rounded-[50%] ${status === "todo" ? 'bg-blue-500' : status === "inProgress" ? "bg-yellow-400" : "bg-green-600"}`}></div>
+          <div className='text-lg font-semibold capitalize text-gray-800'>{status}</div>
+          <div className="bg-gray-300 p-2 w-7 h-7 rounded-full flex items-center justify-center font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-300">
+            {cards.length}
+          </div>
+
+        </div>
+      </div>
+      <div className={`mt-2 ${status === "todo" ? 'bg-blue-500' : status === "inProgress" ? "bg-yellow-400" : "bg-green-600"} h-1 rounded-md w-full`}></div>
+      <div className="space-y-4 mt-5">
         {cards.map((card, index) => (
-          <Card key={index} task={card} status={status} />
+          <Card key={card._id} task={card} status={status} />
         ))}
       </div>
     </div>

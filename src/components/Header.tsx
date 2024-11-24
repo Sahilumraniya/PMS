@@ -1,11 +1,30 @@
-import { FC } from 'react';
+import { logout } from '@/redux/authSlice';
+import { useRouter } from 'next/navigation';
+import { FC, useEffect } from 'react';
 import { FaBars } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface HeaderProps {
   toggleSidebar: () => void;
 }
 
 const Header: FC<HeaderProps> = ({ toggleSidebar }) => {
+  const user = useSelector((state: any) => state.auth.userData);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  // console.log(user);
+
+  const userLogout = () => {
+    dispatch(logout());
+    router.push('/login');
+  }
+
+  useEffect(() => {
+    if (!user) {
+      dispatch(logout());
+    }
+  }, [user, dispatch]);
+
   return (
     <header className="flex items-center justify-between p-4 bg-white border-b">
       <button
@@ -14,16 +33,16 @@ const Header: FC<HeaderProps> = ({ toggleSidebar }) => {
       >
         <FaBars />
       </button>
-      <h2 className="text-xl font-bold">Mobile App</h2>
+      <h2 className="text-xl font-bold">
+        Dashboard
+      </h2>
       <div className="flex items-center space-x-4">
-        <button className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
-          Invite
+        <div className="flex items-center space-x-2">
+          <span>{user?.name}</span>
+        </div>
+        <button onClick={userLogout} className="px-4 py-2 text-white hover:cursor-pointer bg-red-500 rounded hover:bg-red-600">
+          Logout
         </button>
-        <img
-          src="/avatar.png"
-          alt="User Avatar"
-          className="w-10 h-10 rounded-full border"
-        />
       </div>
     </header>
   );
