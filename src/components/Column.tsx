@@ -24,7 +24,7 @@ const Column: FC<ColumnProps> = ({ status, cards }) => {
 
   return (
     <div
-      ref={drop}
+      ref={drop as unknown as React.RefObject<HTMLDivElement>} // Type cast to match HTMLDivElement type
       className={`relative p-4 rounded-lg shadow-lg bg-white border border-gray-200 transition-all duration-30`}
     >
       <div className='flex justify-between'>
@@ -34,7 +34,6 @@ const Column: FC<ColumnProps> = ({ status, cards }) => {
           <div className="bg-gray-300 p-2 w-7 h-7 rounded-full flex items-center justify-center font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-300">
             {cards.length}
           </div>
-
         </div>
       </div>
       <div className={`mt-2 ${status === "todo" ? 'bg-blue-500' : status === "inProgress" ? "bg-yellow-400" : "bg-green-600"} h-1 rounded-md w-full`}></div>

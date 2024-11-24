@@ -8,9 +8,11 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const res = await fetch("/api/auth/signup", {
       method: "POST",
@@ -21,6 +23,7 @@ const SignupPage = () => {
     });
 
     const data = await res.json();
+    setLoading(false);
 
     if (res.ok) {
       router.push("/login");
@@ -69,7 +72,7 @@ const SignupPage = () => {
               type="submit"
               className="w-full p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"
             >
-              Signup
+              {loading ? "Signup..." : "Signup"}
             </button>
           </div>
         </form>
