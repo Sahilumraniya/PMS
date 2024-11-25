@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Task } from '@/components/types';
 
 const initialState: { tasks: Task[] } = {
-    tasks: typeof window !== "undefined" && JSON.parse(localStorage.getItem('tasks') || '[]'), // Load tasks from localStorage on initial load
+    tasks: typeof window !== "undefined" && JSON.parse(localStorage.getItem('tasks') || '[{"_id":"8q4q3g0f7","title":"Test View ","description":"this task is by default to show in every user","priority":"High","assignees":["sahil","parth"],"comments":8,"files":9,"dueDate":"2024-11-26","status":"todo"}]'), // Load tasks from localStorage on initial load
 };
 
 const taskSlice = createSlice({
@@ -40,9 +40,12 @@ const taskSlice = createSlice({
                 localStorage.setItem('tasks', JSON.stringify(state.tasks)); // Save updated tasks to localStorage
             }
         },
+        removeAllTask(state, action: PayloadAction<void>) {
+            state.tasks = [];
+        }
     },
 });
 
-export const { setTasks, addTask, updateTask, deleteTask, moveTask } = taskSlice.actions;
+export const { setTasks, addTask, updateTask, deleteTask, moveTask, removeAllTask } = taskSlice.actions;
 
 export default taskSlice.reducer;

@@ -1,4 +1,5 @@
 import { logout } from '@/redux/authSlice';
+import { removeAllTask } from '@/redux/taskSlice';
 import { useRouter } from 'next/navigation';
 import { FC, useEffect } from 'react';
 import { FaBars } from 'react-icons/fa';
@@ -16,6 +17,8 @@ const Header: FC<HeaderProps> = ({ toggleSidebar }) => {
 
   const userLogout = () => {
     dispatch(logout());
+    dispatch(removeAllTask());
+    localStorage.clear();
     router.push('/login');
   }
 
